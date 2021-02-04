@@ -13,19 +13,23 @@ public class FareCalculatorService {
 		double inHour = ticket.getInTime().getTime();
 		double outHour = ticket.getOutTime().getTime();
 
-		// TODO: Some tests are failing here. Need to check if this logic is correct
 		double duration = ((outHour - inHour) / (60 * 60 * 1000));
+
+		int discount = 0;
+		if (ticket.getRecurrence()) {
+			discount = 5;
+		}
 
 		if (duration < 0.5) {
 			ticket.setPrice(0);
 		} else {
 			switch (ticket.getParkingSpot().getParkingType()) {
 			case CAR: {
-				ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR);
+				ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR - (Fare.CAR_RATE_PER_HOUR * discount / 100));
 				break;
 			}
 			case BIKE: {
-				ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);
+				ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR - (Fare.BIKE_RATE_PER_HOUR * discount / 100));
 				break;
 			}
 			default:

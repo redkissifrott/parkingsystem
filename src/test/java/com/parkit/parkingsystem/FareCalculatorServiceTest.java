@@ -155,7 +155,7 @@ public class FareCalculatorServiceTest {
 		ticket.setOutTime(outTime);
 		ticket.setParkingSpot(parkingSpot);
 		ticket.setVehicleRegNumber("ABCDE");
-		ticket.setRecurrenceCount(1);
+		ticket.setRecurrence(true);
 
 		fareCalculatorService.calculateFare(ticket);
 
@@ -172,7 +172,7 @@ public class FareCalculatorServiceTest {
 		ticket.setInTime(inTime);
 		ticket.setOutTime(outTime);
 		ticket.setParkingSpot(parkingSpot);
-		ticket.setRecurrenceCount(1);
+		ticket.setRecurrence(true);
 
 		fareCalculatorService.calculateFare(ticket);
 
