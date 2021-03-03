@@ -1,5 +1,6 @@
 package com.parkit.parkingsystem.service;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 
 import org.apache.logging.log4j.LogManager;
@@ -38,6 +39,11 @@ public class ParkingService {
 															// false
 
 				Date inTime = new Date();
+				Ticket ticketPrecedent = ticketDAO.getTicket(vehicleRegNumber);
+				if (ticketPrecedent != null) {
+					System.out.println(
+							"Welcome back! As a recurring user of our parking lot, you'll benefit from a 5% discount.");
+				}
 				Ticket ticket = new Ticket();
 				// ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
 				// ticket.setId(ticketID);
@@ -106,12 +112,13 @@ public class ParkingService {
 			Ticket ticket = ticketDAO.getTicket(vehicleRegNumber);
 			Date outTime = new Date();
 			ticket.setOutTime(outTime);
+			DecimalFormat df = new DecimalFormat("#.##");
 			fareCalculatorService.calculateFare(ticket);
 			if (ticketDAO.updateTicket(ticket)) {
 				ParkingSpot parkingSpot = ticket.getParkingSpot();
 				parkingSpot.setAvailable(true);
 				parkingSpotDAO.updateParking(parkingSpot);
-				System.out.println("Please pay the parking fare:" + ticket.getPrice());
+				System.out.println("Please pay the parking fare:" + df.format(ticket.getPrice()));
 				System.out.println(
 						"Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + outTime);
 			} else {

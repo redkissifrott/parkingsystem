@@ -59,11 +59,12 @@ public class TicketDAO {
 				ticket.setPrice(rs.getDouble(3));
 				ticket.setInTime(rs.getTimestamp(4));
 				ticket.setOutTime(rs.getTimestamp(5));
+				ticket.setRecurrence(rs.previous());
 			}
-			Boolean recurrence = (rs.previous());
+
 			dataBaseConfig.closeResultSet(rs);
 			dataBaseConfig.closePreparedStatement(ps);
-			ticket.setRecurrence(recurrence);
+
 		} catch (Exception ex) {
 			logger.error("Error fetching next available slot", ex);
 		} finally {
