@@ -3,8 +3,18 @@ package com.parkit.parkingsystem.service;
 import com.parkit.parkingsystem.constants.Fare;
 import com.parkit.parkingsystem.model.Ticket;
 
+/**
+ * calculate the exit ticket price and set this attribute.
+ *
+ */
 public class FareCalculatorService {
 
+	/**
+	 * calculate the exit ticket price according to duration and recurrence discount
+	 * and set this attribute
+	 * 
+	 * @param ticket
+	 */
 	public void calculateFare(Ticket ticket) {
 		if ((ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime()))) {
 			throw new IllegalArgumentException("Out time provided is incorrect:" + ticket.getOutTime().toString());
