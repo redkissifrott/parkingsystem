@@ -17,6 +17,7 @@ class ParkingSpotDAOTest {
 	private static DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
 	private static DataBasePrepareService dataBasePrepareService;
 	private static ParkingSpotDAO parkingSpotDAO;
+	private ParkingSpot parkingSpot;
 
 	@BeforeAll
 	private static void setUp() throws Exception {
@@ -28,6 +29,10 @@ class ParkingSpotDAOTest {
 	@BeforeEach
 	private void setUpPerTest() throws Exception {
 		dataBasePrepareService.clearDataBaseEntries();
+		parkingSpot = new ParkingSpot(0, null, false);
+		parkingSpot.setId(1);
+		parkingSpot.setParkingType(ParkingType.CAR);
+		parkingSpot.setAvailable(false);
 	}
 
 	@AfterAll
@@ -39,13 +44,13 @@ class ParkingSpotDAOTest {
 	void getNextAvailableSlotTest() {
 		int parkingSpotNumber = parkingSpotDAO.getNextAvailableSlot(ParkingType.CAR);
 		assertEquals(1, parkingSpotNumber);
+		assertEquals(1, parkingSpot.getId());
+		assertEquals(ParkingType.CAR, parkingSpot.getParkingType());
 	}
 
 	@Test
 	void updateParkingTest() {
-		ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
-		Boolean isAvailableUpdate = parkingSpotDAO.updateParking(parkingSpot);
-		assertEquals(true, isAvailableUpdate);
+		assertEquals(true, parkingSpotDAO.updateParking(parkingSpot));
 	}
 
 }
