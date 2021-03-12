@@ -1,5 +1,6 @@
 package com.parkit.parkingsystem.util;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 import org.apache.logging.log4j.LogManager;
@@ -11,7 +12,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class InputReaderUtil {
 
-	private static Scanner scan = new Scanner(System.in);
+	private static Scanner scan = new Scanner(System.in, StandardCharsets.UTF_8.name());
 	private static final Logger logger = LogManager.getLogger("InputReaderUtil");
 
 	/**
